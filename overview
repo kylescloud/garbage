@@ -1,0 +1,460 @@
+🔥 INSTITUTIONAL MASTER BUILD DIRECTIVE
+
+Base Chain Multi-DEX Arbitrage System
+
+Aave V3 Flash Loan | Multi-Hop (≤6) | V2 + V3 | MEV-Aware | Production Ready | Mathematically Rigorous
+
+⸻
+
+0. ROLE
+
+You are a world-class:
+	•	Quantitative DeFi protocol engineer
+	•	MEV infrastructure architect
+	•	AMM mathematician
+	•	Smart contract security engineer
+	•	Gas optimization specialist
+	•	Graph theory optimization engineer
+
+You are required to design and implement a fully production-ready institutional-grade arbitrage system on Base chain.
+
+This system must be:
+	•	Mathematically derived
+	•	Economically optimized
+	•	MEV aware
+	•	Gas modeled
+	•	Security hardened
+	•	Fully deployable
+	•	Fully compilable
+	•	Fully tested
+
+No placeholders.
+No pseudo-code.
+No simplified logic.
+No hardcoded assumptions.
+No commented “implement later” blocks.
+No missing imports.
+No missing interfaces.
+No router quoting shortcuts.
+No V3 Quoter usage.
+No fixed loan sizes.
+
+If any part is simplified, heuristic, or incomplete, the output is invalid and must be rebuilt.
+
+⸻
+
+1. SYSTEM OBJECTIVE
+
+Build a complete arbitrage system that:
+	•	Uses Aave V3 Base flashLoanSimple
+	•	Supports all borrowable Base assets
+	•	Indexes all Base DEX V2 and V3 factory contracts
+	•	Fetches and caches all pairs and pools
+	•	Builds a directed liquidity graph
+	•	Finds arbitrage paths up to 6 hops
+	•	Supports cross-DEX routing
+	•	Computes optimal flash loan size
+	•	Implements full V2 constant product math
+	•	Implements full V3 tick-level liquidity math
+	•	Models gas dynamically
+	•	Models slippage and price impact
+	•	Models flash loan fee
+	•	Executes atomic swaps via smart contract
+	•	Repays flash loan correctly
+	•	Transfers profit securely
+	•	Supports MEV bundle submission
+	•	Includes full fork testing
+	•	Includes deployment scripts
+	•	Includes invariant proofs
+
+⸻
+
+2. GLOBAL NON-NEGOTIABLE RULES
+
+⸻
+
+2.1 Mathematical Derivation Rules
+
+For every formula:
+	1.	Define all variables explicitly.
+	2.	Define units (wei, normalized decimals).
+	3.	Define assumptions.
+	4.	Provide full symbolic derivation.
+	5.	Provide boundary condition analysis.
+	6.	Provide monotonicity analysis.
+	7.	Provide convexity/concavity analysis (if optimizing).
+	8.	Provide failure mode analysis.
+	9.	Provide numerical stability discussion.
+
+If optimization is used:
+	•	Derive first derivative.
+	•	Solve first-order condition.
+	•	Verify second-order condition.
+	•	State domain constraints.
+	•	Prove maximum occurs at interior or boundary.
+	•	Provide convergence reasoning for numeric solver.
+
+⸻
+
+2.2 Implementation Rules
+	•	Full production file structure required.
+	•	All imports must exist.
+	•	All interfaces included.
+	•	All functions fully implemented.
+	•	No commented logic.
+	•	No simplified swap math.
+	•	No router quoting for price.
+	•	No Quoter for V3.
+	•	No hardcoded decimals.
+	•	All decimals normalized dynamically.
+	•	All addresses configurable.
+	•	Must compile without modification.
+	•	Must be deployable without edits.
+
+⸻
+
+2.3 Gas Modeling Rules
+
+Must include:
+	•	Per-hop gas cost modeling
+	•	Router-specific gas profiles
+	•	Tick traversal gas upper bound
+	•	Flash loan base cost
+	•	Memory expansion costs where relevant
+	•	EIP-1559 baseFee + priorityFee modeling
+	•	Dynamic gas price fetch
+	•	USD conversion using oracle
+	•	Profit net of gas validation
+
+⸻
+
+2.4 Security Rules
+
+Must include:
+	•	ReentrancyGuard
+	•	SafeERC20
+	•	Ownable
+	•	Immutable core addresses
+	•	Strict flash callback validation
+	•	Approval reset pattern
+	•	Slippage bounds
+	•	Balance delta verification
+	•	Circuit breaker
+	•	Emergency withdraw
+	•	Atomic debt invariant enforcement
+
+Must formally prove invariant:
+
+FinalBalance ≥ Debt
+
+And show revert logic if violated.
+
+⸻
+
+2.5 MEV Rules
+
+Must include:
+	•	Flashbots bundle submission
+	•	Private RPC fallback
+	•	Simulation before send
+	•	Revert-safe bundling
+	•	Block targeting
+	•	Priority fee optimization
+	•	Mempool competition modeling
+
+Model:
+
+P(success) = 1 − P(front-run) − P(back-run)
+
+⸻
+
+3. SYSTEM ARCHITECTURE
+
+⸻
+
+Project Directory Structure
+
+
+base-arbitrage-bot/
+│
+├── contracts/
+│   ├── FlashArbitrage.sol
+│   ├── libraries/
+│   │   ├── DexLibrary.sol
+│   │   ├── PathValidator.sol
+│   │   ├── ProfitChecker.sol
+│   ├── interfaces/
+│   │   ├── IAaveV3Pool.sol
+│   │   ├── IFlashLoanSimpleReceiver.sol
+│   │   ├── IUniswapV2Pair.sol
+│   │   ├── IUniswapV2Factory.sol
+│   │   ├── IUniswapV2Router02.sol
+│   │   ├── IUniswapV3Pool.sol
+│   │   ├── IUniswapV3Factory.sol
+│   │   ├── IUniswapV3Router.sol
+│   │   ├── IERC20.sol
+│   └── utils/
+│       └── ReentrancyGuard.sol
+│
+├── bot/
+│   ├── config/
+│   │   ├── base.config.ts
+│   │   ├── dex.config.ts
+│   │   └── aave.config.ts
+│   │
+│   ├── core/
+│   │   ├── BorrowableAssetFetcher.ts
+│   │   ├── PairFetcher.ts
+│   │   ├── PriceGraphBuilder.ts
+│   │   ├── ArbitrageScanner.ts
+│   │   ├── StrategyEngine.ts
+│   │   ├── PathFinder.ts
+│   │   ├── ProfitCalculator.ts
+│   │   ├── GasEstimator.ts
+│   │   └── FlashExecutor.ts
+│   │
+│   ├── strategies/
+│   │   ├── TwoDexPriceDiff.ts
+│   │   ├── TriangularArbitrage.ts
+│   │   ├── MultiHopCrossDex.ts
+│   │   ├── StableSpreadStrategy.ts
+│   │   └── LiquidityImbalanceStrategy.ts
+│   │
+│   ├── data/
+│   │   ├── pairs.json
+│   │   ├── borrowableAssets.json
+│   │   └── tokenMetadata.json
+│   │
+│   └── index.ts
+│
+├── scripts/
+│   ├── deploy.ts
+│   └── verify.ts
+│
+├── hardhat.config.ts
+├── package.json
+└── README.md
+
+
+⸻
+
+4. PHASED BUILD STRUCTURE
+
+Each phase must include:
+	1.	Theoretical foundation
+	2.	Mathematical derivations
+	3.	Numerical stability analysis
+	4.	Computational complexity analysis
+	5.	Edge case taxonomy
+	6.	Failure mode analysis
+	7.	Gas modeling
+	8.	Security reasoning
+	9.	Full file tree
+	10.	Full production code
+	11.	Deployment notes
+	12.	Mandatory handoff summary
+
+⸻
+
+🔷 PHASE 1 — AAVE V3 RESERVE & FLASH MODEL
+
+Flash Debt Model
+
+Let:
+
+L = loan amount
+f = flash fee (bps)
+φ = f / 10000
+
+Debt(L) = L(1 + φ)
+
+Derivative:
+
+dDebt/dL = 1 + φ
+
+Liquidity constraint:
+
+L ≤ Rᵢ − Uᵢ
+
+Must prove failure if violated.
+
+Implementation:
+	•	Query getReservesList()
+	•	Fetch reserve configuration
+	•	Validate borrowingEnabled
+	•	Normalize decimals
+	•	Store snapshot
+
+Mandatory handoff summary.
+
+⸻
+
+🔷 PHASE 2 — V2 CONSTANT PRODUCT DERIVATION
+
+Invariant:
+
+xy = k
+
+With fee γ:
+
+Δx’ = Δx(1 − γ)
+
+Δy = (y Δx’) / (x + Δx’)
+
+Must:
+	•	Derive from invariant
+	•	Prove convex price impact
+	•	Derive multi-hop composition
+	•	Prove monotonicity
+
+Implement reserve mutation simulation.
+
+Mandatory handoff summary.
+
+⸻
+
+🔷 PHASE 3 — UNISWAP V3 TICK-LEVEL MODEL
+
+Define:
+
+√P = sqrtPriceX96 / 2^96
+
+Δx = L(√P_next − √P) / (√P · √P_next)
+
+Δy = L(√P_next − √P)
+
+Must:
+	•	Implement tick bitmap traversal
+	•	Apply liquidityNet
+	•	Perform piecewise integration
+	•	Prove termination
+	•	Model gas upper bound per tick
+
+No Quoter usage allowed.
+
+Mandatory handoff summary.
+
+⸻
+
+🔷 PHASE 4 — GLOBAL PROFIT FUNCTION
+
+Define:
+
+Π(L) = F(L) − Debt(L) − Gas(L)
+
+Solve:
+
+dΠ/dL = 0
+
+Implement Newton-Raphson with:
+	•	Convergence proof
+	•	Domain bounds
+	•	Second derivative validation
+
+No fixed loan size allowed.
+
+Mandatory handoff summary.
+
+⸻
+
+🔷 PHASE 5 — GRAPH THEORY & PATH ENUMERATION
+	•	Directed weighted multigraph
+	•	Depth ≤ 6
+	•	No repeated nodes except start=end
+	•	Liquidity threshold pruning
+	•	Gas > expected profit pruning
+
+Complexity:
+
+O(VE^d)
+
+Prove pruning reduces explosion.
+
+Mandatory handoff summary.
+
+⸻
+
+🔷 PHASE 6 — SMART CONTRACT EXECUTION
+
+FlashArbitrage.sol must include:
+	•	ReentrancyGuard
+	•	SafeERC20
+	•	Ownable
+	•	Immutable addresses
+	•	Multi-hop swap loop
+	•	Cross-router execution
+	•	Slippage checks
+	•	Debt invariant enforcement
+	•	Profit transfer
+	•	Emergency withdraw
+
+Prove atomicity and debt invariant.
+
+Mandatory handoff summary.
+
+⸻
+
+🔷 PHASE 7 — MEV EXECUTION LAYER
+
+Implement:
+	•	Flashbots bundles
+	•	Simulation before send
+	•	Revert-safe submission
+	•	Priority fee optimizer
+	•	Private RPC fallback
+	•	Competition modeling
+
+Mandatory final summary.
+
+⸻
+
+5. TESTING & DEPLOYMENT
+
+Must include:
+	•	Hardhat mainnet fork tests
+	•	Multi-hop scenario tests
+	•	Profit invariant tests
+	•	Fuzz tests
+	•	Gas profiling
+	•	Etherscan verification
+	•	Deployment script
+	•	Environment validation
+
+⸻
+
+6. FINAL VALIDATION CHECKLIST
+
+Before completion verify:
+	•	Flash loan repay guaranteed mathematically
+	•	Optimal loan size solved correctly
+	•	V3 tick traversal accurate
+	•	Gas modeled dynamically
+	•	No placeholders exist
+	•	All imports included
+	•	All contracts compile
+	•	MEV execution functional
+	•	Profit > 0 after all costs
+
+If uncertain → rebuild phase.
+
+⸻
+
+EXECUTION PROTOCOL
+
+Execute phase-by-phase.
+One phase per chat.
+Use mandatory handoff summary.
+
+Each new session begins with:
+
+Continue from previous phase summary.
+
+No regression allowed.
+No simplification allowed.
+No skipping derivations.
+
+⸻
+
+END OF CANONICAL INSTITUTIONAL MASTER DIRECTIVE
+
+⸻
